@@ -2,12 +2,15 @@ package com.fastcampus.cryptautomation.http;
 
 import com.slack.api.Slack;
 import com.slack.api.webhook.Payload;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 @Component
 public class SlackHttpClient {
+    @Value("${slack.webhook.url}")
+    private String webhookUrl;
     public void send(String message) {
         try {
             Slack instance = Slack.getInstance();
@@ -15,7 +18,7 @@ public class SlackHttpClient {
                     .text(message)
                     .build();
 
-            instance.send("https://hooks.slack.com/services/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", payload);
+            instance.send(webhookUrl, payload);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

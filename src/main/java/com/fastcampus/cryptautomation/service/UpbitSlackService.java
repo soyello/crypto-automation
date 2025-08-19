@@ -3,6 +3,7 @@ package com.fastcampus.cryptautomation.service;
 import com.fastcampus.cryptautomation.http.SlackHttpClient;
 import com.fastcampus.cryptautomation.http.UpbitHttpClient;
 import com.fastcampus.cryptautomation.http.UpbitTickerDto;
+import com.fastcampus.cryptautomation.repository.ReportHistoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +12,9 @@ import org.springframework.stereotype.Service;
 public class UpbitSlackService {
     private final SlackHttpClient slackHttpClient;
     private final UpbitHttpClient upbitHttpClient;
+    private final ReportHistoryRepository repository;
 
-    public void execute(String market){
+    public void execute(String market) {
         //upbit 호출
         UpbitTickerDto tickerByMarket = upbitHttpClient.getTickerByMarket(market);
 
@@ -23,5 +25,7 @@ public class UpbitSlackService {
         sb.append(" price = ");
         sb.append(tickerByMarket.getTrade_price());
         slackHttpClient.send(sb.toString());
+
+        repository.save(market, String.valueOf(tickerByMarket.getTrade_price()));
     }
 }
