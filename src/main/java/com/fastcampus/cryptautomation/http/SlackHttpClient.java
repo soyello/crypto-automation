@@ -15,7 +15,7 @@ public class SlackHttpClient {
                     .text(message)
                     .build();
 
-            instance.send("https://hooks.slack.com/services/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", payload);
+            instance.send("https://hooks.slack.com/services/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", payload);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
