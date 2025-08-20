@@ -1,10 +1,12 @@
 package com.fastcampus.cryptautomation.http;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@Builder
+//@Builder
 public class UpbitTickerDto {
     private String market;
     private String trade_date;
